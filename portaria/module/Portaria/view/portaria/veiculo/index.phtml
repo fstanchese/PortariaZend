@@ -1,0 +1,48 @@
+<hr size="15" align="left" width="100%" color="#FF0000">
+<a class="btn btn-primary" href="<?php echo $this->url('veiculo', array('controller' => 'veiculo', 'action' => 'add')); ?>">Cadastrar</a>
+<hr size="15" align="left" width="100%" color="#FF0000">
+<?php
+if ($this->success)
+    echo '<div class="alert alert-success">'.$this->success[0].'<button type="button" class="close" data-dismiss="alert">Ã—</button></div>';
+
+if ($this->error)
+    echo '<div class="alert alert-danger">'.$this->error[0].'<button type="button" class="close" data-dismiss="alert">Ã—</button></div>';
+?>
+<table class="table table-bordered table-striped table-hover table-condensed">
+    <?php if (count($this->data) > 0): ?>
+    	<thead>
+    	<tr>
+        <th width="4%">ID</th>
+		<th width="09%">PLACA</th>
+        <th width="10%">MODELO</th>
+        <th width="10%">COR</th>
+		<th width="49%">MORADOR</th>
+        <th width="08%">AÇÃO</th>
+    	</tr>
+    	</thead>
+    	<tbody>
+    	<?php
+    	/**
+    	* @var $entity \Categoria\Entity\veiculo
+  	   	*/
+		?>
+        <?php foreach( $this->data as $entity): ?>
+        <tr>
+            <td><?php echo $entity->getId(); ?></td>
+            <td><?php echo $entity->getPlaca(); ?></td> 
+            <td><?php echo $entity->getModelo()->getMarca()->getDescricao().' - '.$entity->getModelo()->getDescricao(); ?></td>
+            <td><?php echo $entity->getCor()->getDescricao(); ?></td>            
+            <td><?php echo $entity->getMorador()->getUnidade()->getDescricao().' - '.$entity->getMorador()->getNome(); ?></td>
+            <td>
+                <a class="btn btn-success" href="<?php echo $this->url('veiculo', array('controller' => 'veiculo', 'action' => 'edit'  , 'id' => $entity->getId())); ?>"><i class="glyphicon glyphicon-pencil"></i> </a>
+                <a class="btn btn-danger"  href="<?php echo $this->url('veiculo', array('controller' => 'veiculo', 'action' => 'delete', 'id' => $entity->getId())); ?>"><i class="glyphicon glyphicon-remove-sign"></i> </a>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <p>Nenhum registro encontrado!</p>
+    <?php endif; ?>
+    </tbody>
+</table>
+
+<?php echo $this->paginationControl(  $this->data,    'sliding',    'partial/paginator.phtml',    array('route' => 'veiculo')); ?>

@@ -1,0 +1,38 @@
+<hr size="15" align="left" width="100%" color="#FF0000">
+<h3>Cadastrar</h3>
+<hr size="15" align="left" width="100%" color="#FF0000">
+<?php
+    /**
+     * @var $form \Zend\Form\Form
+     */
+    $form = $this->form;
+    if ($this->success)
+        echo '<div class="alert alert-success">'.$this->success[0].'<button type="button" class="close" data-dismiss="alert">×</button></div>';
+    if ($this->error)
+        echo '<div class="alert alert-warning">'.$this->error[0].'<button type="button" class="close" data-dismiss="alert">×</button></div>';
+    $this->formElementErrors()
+        ->setMessageOpenFormat ('<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert">×</button>')
+        ->setMessageCloseString ('</div>')
+        ->render ($form);
+    $form->setAttribute('action', $this->url('morador', array('controller' => 'morador', 'action' => 'add')));
+    $form->prepare();
+    echo $this->form()->openTag($form);
+    echo $this->formRow($form->get('unidade'));
+    echo '<hr size="5" align="left" width="100%" color="#FF0000">';
+    echo $this->formRow($form->get('nome'));
+    echo '<hr size="5" align="left" width="100%" color="#FF0000">';
+    echo $this->formRow($form->get('cpf'));
+	echo $this->formRow($form->get('documento'));
+	echo '<hr size="5" align="left" width="100%" color="#FF0000">';	
+	echo $this->formRow($form->get('celular'));
+	echo '<hr size="5" align="left" width="100%" color="#FF0000">';
+	echo $this->formRow($form->get('datanascto'));
+	echo '<hr size="5" align="left" width="100%" color="#FF0000">';
+	echo $this->formRow($form->get('submit'));
+    echo $this->form()->closeTag();
+?>
+<style type="text/css">
+    input, textarea, label, select {
+        display: block;
+    }
+</style>
